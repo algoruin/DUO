@@ -5,9 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+
+import com.duo.main.menu.Keyboard;
+import com.duo.main.menu.Menu;
 
 public class Game extends Canvas implements Runnable {
 
@@ -16,7 +18,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int width = 600;
 	public static final int height = 400;
 
-	BufferedImage img;
+	Menu menu;
 
 	public Game() {
 		Dimension dim = new Dimension(width, height);
@@ -55,12 +57,12 @@ public class Game extends Canvas implements Runnable {
 	}
 
 	public void init() {
-		img = Sprites.getImage("/dangos/dangos.png", 0, 0, 16, 12);
-		img = Sprites.changeColor(img, new int[][] { { 255, 0, 255 } }, new int[][] { { 255, 0, 0 } });
+		menu = new Menu();
+		addKeyListener(new Keyboard());
 	}
 
 	public void update() {
-
+		menu.update();
 	}
 
 	public void draw() {
@@ -74,7 +76,7 @@ public class Game extends Canvas implements Runnable {
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		g.drawImage(img, 20, 20, 64, 48, null);
+		menu.draw(g);
 
 		g.dispose();
 		bs.show();
